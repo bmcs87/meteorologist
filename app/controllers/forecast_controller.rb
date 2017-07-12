@@ -21,16 +21,16 @@ class ForecastController < ApplicationController
     url = url + @lat, +@lng
     parsed_data = JSON.parse(open(url).read)
   
-    @current_temperature = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["currently"]["temperature"]
-
-    @current_summary = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["currently"]["summary"]
-
-    @summary_of_next_sixty_minutes = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["minutely"]
-
-    @summary_of_next_several_hours = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["hourly"]
-    
-    @summary_of_next_several_days = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["daily"]
-
+    #@current_temperature = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["currently"]["temperature"]
+    @current_temperature = parsed_data.dig("currently", "temperature")
+    #@current_summary = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["currently"]["summary"]
+    @current_summary = parsed_data.dig("currently", "summary")
+    #@summary_of_next_sixty_minutes = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["minutely"]
+    @summary_of_next_sixty_minutes = parsed_data.dig("minutely","summary")
+    #@summary_of_next_several_hours = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["hourly"]
+    @summary_of_next_several_hours = parsed_data.dig("hourly", "summary")
+    #@summary_of_next_several_days = parsed_data["latitude"]["longitude"]["timezone"]["offset"]["daily"]
+    @summary_of_next_several_days = parsed_data.dig("weekly","summary")
     render("forecast/coords_to_weather.html.erb")
   end
 end

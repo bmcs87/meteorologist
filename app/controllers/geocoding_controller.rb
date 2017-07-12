@@ -21,7 +21,7 @@ class GeocodingController < ApplicationController
     
     #@street_address = @street_address.gsub(\s+/,"+")
     #why doesn't the @street_address work?  it seems like that formula should work
-    # url.join(@street_address)
+    #url.join(@street_address)
     
     parsed_data = JSON.parse(open(url).read)
 
