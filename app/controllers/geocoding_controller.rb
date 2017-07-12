@@ -12,7 +12,7 @@ class GeocodingController < ApplicationController
     # convert street address from array to string with +'s between each word, add it onto url
 
     # ==========================================================================
-    # Your code goes below.
+    # Your code goes below..
     #
     # The street address that the user typed is in the variable @street_address.
     # ==========================================================================
