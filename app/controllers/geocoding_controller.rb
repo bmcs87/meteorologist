@@ -17,11 +17,11 @@ class GeocodingController < ApplicationController
     # The street address that the user typed is in the variable @street_address.
     # ==========================================================================
 
-    url = "https://maps.googleapis.com/maps/api/geocode/json?address="
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + @street_address
     
     #@street_address = @street_address.gsub(\s+/,"+")
     #why doesn't the @street_address work?  it seems like that formula should work
-    url.join(@street_address)
+    # url.join(@street_address)
     
     parsed_data = JSON.parse(open(url).read)
 
