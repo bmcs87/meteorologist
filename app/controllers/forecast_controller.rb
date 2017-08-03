@@ -2,7 +2,7 @@ require 'open-uri'
 
 class ForecastController < ApplicationController
   def coords_to_weather_form
-    # Nothing to do here.
+
     render("forecast/coords_to_weather_form.html.erb")
   end
 
@@ -19,19 +19,18 @@ class ForecastController < ApplicationController
   
     @url = "https://api.darksky.net/forecast/7061017e8de3ec9d3d32af1b8ef4067f/"
     
-    @url = @url + @lat +"," +@lng
-    parsed_data = JSON.parse(open(@url).read)
-  
-   
-    @current_temperature = parsed_data.dig("currently", "temperature")
+    #takes the API key and adds the lat and long
+    @darksky_url = @url + @lat + "," + @lng
     
-    @current_summary = parsed_data.dig("currently", "summary")
- 
+    parsed_data = JSON.parse(open(@darksky_url).read)
+
+    #temps
+    @current_temperature = parsed_data.dig("currently","temperature")
+    @current_summary = parsed_data.dig("currently","summary")
     @summary_of_next_sixty_minutes = parsed_data.dig("minutely","summary")
-    
-    @summary_of_next_several_hours = parsed_data.dig("hourly", "summary")
-    
-    @summary_of_next_several_days = parsed_data.dig("weekly","summary")
+    @summary_of_next_several_hours = parsed_data.dig("hourly","summary")
+    @summary_of_next_several_days = parsed_data.dig("daily","summary")
+
     render("forecast/coords_to_weather.html.erb")
   end
 end
